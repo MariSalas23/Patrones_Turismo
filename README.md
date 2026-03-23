@@ -2,6 +2,8 @@
 
 # Patrones Trabajo 1 - Corte 2
 
+## Arquitectura Hexagonal
+
 Mi empresa es de: **Turismo**
 
 Las reglas de negocio importantes son:
@@ -36,15 +38,15 @@ Los submódulos que vemos en esta empresa son:
 
 La infraestructura que voy a utilizar:
 
-* Se divide en dos subcarpetas:
-    * *Adaptadores de entrada (IN / primarios):* Se encargan de recibir solicitudes externas y enviarlas a la capa de aplicación.
-        * Controllers:
+* Se divide en dos subcarpetas / adaptadores:
+    * Primarios o in: Se encargan de recibir solicitudes externas y enviarlas a la capa de aplicación.
+        * controllers:
             * ReservaController
             * TourController
             * UsuarioController
-        * Advice:
+        * advice:
             * GlobalExceptionHandler
-    * *Adaptadores de salida (OUT / secundarios):* Se encargan de interactuar con sistemas externos.
+    * Secundarios o out: Se encargan de interactuar con sistemas externos.
         * persistence:
             * ReservaMongoAdapter
             * TourMongoAdapter
@@ -57,4 +59,14 @@ La infraestructura que voy a utilizar:
 * Tiene como base de datos no relacional a MongoDB.
 * Usa API REST (Spring Boot) para la comunicación de los módulos.
 * Maneja fechas en UTC 0.
-* Tiene el manejo global de errores implementado mediante `@ControllerAdvice`.
+* Tiene el manejo global de errores implementado mediante *@ControllerAdvice*.
+
+## Estructura del proyecto
+
+## Video de funcionamiento
+
+## Pasos para la instalación
+
+## Excepciones
+
+## Pruebas
