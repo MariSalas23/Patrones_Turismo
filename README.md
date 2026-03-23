@@ -21,6 +21,7 @@ Las reglas de negocio importantes son:
 Los casos de uso que se ven en esta empresa son:
 
 * Registrar usuario
+* Obtener usuario
 * Consultar tours disponibles
 * Crear reserva
 * Cancelar reserva
@@ -62,6 +63,111 @@ La infraestructura que voy a utilizar:
 * Tiene el manejo global de errores implementado mediante *@ControllerAdvice*.
 
 ## Estructura del proyecto
+
+turismo-app/
+│
+├── pom.xml
+├── .gitignore
+├── src/
+│   ├── main/
+│   │   └── java/com/turismo/turismo_app/
+│   │       ├── TurismoAppApplication.java
+│   │       ├── usuarios/
+│   │       │   ├── dominio/
+│   │       │   │   ├── entities/
+│   │       │   │   │   └── Usuario.java
+│   │       │   │   ├── ports/
+│   │       │   │   │   └── UsuarioRepositoryPort.java
+│   │       │   │   └── exceptions/
+│   │       │   │       └── UsuarioException.java  
+│   │       │   ├── aplicacion/
+│   │       │   │   └── casos_uso/
+│   │       │   │       ├── RegistrarUsuario.java
+│   │       │   │       └── ObtenerUsuario.java
+│   │       │   └── infraestructura/
+│   │       │       ├── in/
+│   │       │       │   ├── controllers/
+│   │       │       │   │   └── UsuarioController.java
+│   │       │       │   └── advice/
+│   │       │       │       └── GlobalExceptionHandler.java 
+│   │       │       └── out/
+│   │       │           └── persistence/
+│   │       │               └── UsuarioMongoAdapter.java
+│   │       ├── tours/
+│   │       │   ├── dominio/
+│   │       │   │   ├── entities/
+│   │       │   │   │   └── Tour.java
+│   │       │   │   ├── ports/
+│   │       │   │   │   └── TourRepositoryPort.java
+│   │       │   │   └── exceptions/
+│   │       │   │       └── TourException.java 
+│   │       │   ├── aplicacion/
+│   │       │   │   └── casos_uso/
+│   │       │   │       ├── CrearTour.java
+│   │       │   │       ├── ModificarTour.java
+│   │       │   │       └── CancelarTour.java
+│   │       │   └── infraestructura/
+│   │       │       ├── in/
+│   │       │       │   ├── controllers/
+│   │       │       │   │   └── TourController.java
+│   │       │       │   └── advice/
+│   │       │       │       └── GlobalExceptionHandler.java 
+│   │       │       └── out/
+│   │       │           └── persistence/
+│   │       │               └── TourMongoAdapter.java
+│   │       └── reservas/
+│   │           ├── dominio/
+│   │           │   ├── entities/
+│   │           │   │   └── Reserva.java
+│   │           │   ├── ports/
+│   │           │   │   ├── ReservaRepositoryPort.java
+│   │           │   │   ├── TourClientPort.java
+│   │           │   │   ├── UsuarioClientPort.java
+│   │           │   │   └── PagoPort.java
+│   │           │   └── exceptions/
+│   │           │       └── ReservaException.java
+│   │           ├── aplicacion/
+│   │           │   └── casos_uso/
+│   │           │       ├── CrearReserva.java
+│   │           │       ├── CancelarReserva.java
+│   │           │       ├── ConfirmarReserva.java
+│   │           │       └── HistorialReservas.java
+│   │           └── infraestructura/
+│   │               ├── in/
+│   │               │   ├── controllers/
+│   │               │   │   └── ReservaController.java
+│   │               │   └── advice/
+│   │               │       └── GlobalExceptionHandler.java
+│   │               └── out/
+│   │                   ├── persistence/
+│   │                   │   └── ReservaMongoAdapter.java
+│   │                   ├── http/
+│   │                   │   ├── TourHttpAdapter.java
+│   │                   │   └── UsuarioHttpAdapter.java
+│   │                   └── external/
+│   │                       └── PagoGatewayAdapter.java
+│   └── test/
+│       └── java/com/turismo/turismo_app/
+│           ├── unitarias/
+│           │   ├── reservas/
+│           │   │   ├── CrearReservaTest.java
+│           │   │   ├── ConfirmarReservaTest.java
+│           │   │   └── CancelarReservaTest.java
+│           │   ├── tours/
+│           │   │   ├── CrearTourTest.java
+│           │   │   ├── ModificarTourTest.java
+│           │   │   └── CancelarTourTest.java
+│           │   └── usuarios/
+|           |       ├── ObtenerUsuarioTest.java
+│           │       └── RegistrarUsuarioTest.java
+│           └── integracion/
+|               ├── reservas/
+│               │   └── ReservaIntegrationTest.java
+│               ├── tours/
+│               │   └── TourIntegrationTest.java
+│               └── usuarios/
+│                   └── UsuarioIntegrationTest.java
+└── README.md
 
 ## Video de funcionamiento
 
