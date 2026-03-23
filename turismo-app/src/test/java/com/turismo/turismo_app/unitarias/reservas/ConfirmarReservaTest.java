@@ -1,5 +1,5 @@
 package com.turismo.turismo_app.unitarias.reservas;
 
-public class ModificarReservaTest {
+public class ConfirmarReservaTest {
     
 }
