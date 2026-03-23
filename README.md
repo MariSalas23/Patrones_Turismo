@@ -31,13 +31,22 @@ Los casos de uso que se ven en esta empresa son:
 
 Los submódulos que vemos en esta empresa son:
 
-* Gestión de tours
-* Gestión de reservas
-* Gestión de pagos
+* Gestión de tours.
+* Gestión de reservas.
+* Gestión de pagos.
+* Gestión de usuarios.
 
 La infraestructura que voy a utilizar es:
 
 * La base de datos tiene que ser NO relacional.
+* API REST (Spring Boot recomendado)
+* Arquitectura hexagonal
+Separación por capas:
+Dominio
+Aplicación
+Infraestructura
+Logs estructurados
+Manejo de fechas en UTC 0
   
 
 Se tienen que comuniciar los dos modulos a través de rest
