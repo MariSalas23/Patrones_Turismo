@@ -47,7 +47,7 @@ La infraestructura que voy a utilizar:
             * UsuarioController
         * advice:
             * GlobalExceptionHandler
-    * Secundarios o out: Se encargan de interactuar con sistemas externos.
+    * Secundarios u out: Se encargan de interactuar con sistemas externos.
         * persistence:
             * ReservaMongoAdapter
             * TourMongoAdapter
@@ -64,6 +64,7 @@ La infraestructura que voy a utilizar:
 
 ## Estructura del proyecto
 
+```
 turismo-app/
 │
 ├── pom.xml
@@ -168,6 +169,7 @@ turismo-app/
 │               └── usuarios/
 │                   └── UsuarioIntegrationTest.java
 └── README.md
+```
 
 ## Video de funcionamiento
 
