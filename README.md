@@ -175,6 +175,45 @@ turismo-app/
 
 ## Pasos para la instalación
 
+### Requisitos
+
+* Java 17+
+* Maven 3.8+
+
+### Clonar el repositorio
+
+git clone https://github.com/MariSalas23/Patrones_Turismo.git 
+
+cd turismo-app
+
+### Compilar el proyecto
+
+mvn clean install
+
+### Ejecutar la aplicación
+
+mvn spring-boot:run
+
+### Postman
+
+#### Usuarios
+
+**POST**
+
+http://localhost:8080/usuarios
+
+**Body (JSON):**
+
+{
+  "nombre": "Prueba",
+  "correo": "prueba@gmail.com",
+  "tipo": "CLIENTE"
+}
+
+**GET**
+
+http://localhost:8080/usuarios
+
 ## Excepciones
 
 ## Pruebas
