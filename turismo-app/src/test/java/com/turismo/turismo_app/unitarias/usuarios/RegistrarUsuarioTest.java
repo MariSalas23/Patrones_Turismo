@@ -4,10 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.Map;
 
@@ -33,7 +30,8 @@ class RegistrarUsuarioTest {
 
     @Test
     void deberiaRegistrarUsuarioCliente() {
-        when(repository.save(any(Usuario.class))).thenAnswer(invocation -> {
+        when(repository.existePorCorreo("laura@gmail.com")).thenReturn(false);
+        when(repository.guardar(any(Usuario.class))).thenAnswer(invocation -> {
             Usuario usuario = invocation.getArgument(0);
             usuario.setId("1");
             return usuario;
@@ -41,6 +39,7 @@ class RegistrarUsuarioTest {
 
         Map<String, String> body = Map.of(
                 "nombre", "Laura",
+                "apellido", "Gomez",
                 "correo", "laura@gmail.com",
                 "tipo", "CLIENTE"
         );
@@ -50,39 +49,45 @@ class RegistrarUsuarioTest {
         assertNotNull(respuesta);
         assertEquals("1", respuesta.getId());
         assertEquals("Laura", respuesta.getNombre());
+        assertEquals("Gomez", respuesta.getApellido());
         assertEquals("laura@gmail.com", respuesta.getCorreo());
         assertEquals(TipoUsuario.CLIENTE, respuesta.getTipo());
 
         ArgumentCaptor<Usuario> captor = ArgumentCaptor.forClass(Usuario.class);
-        verify(repository, times(1)).save(captor.capture());
+        verify(repository, times(1)).guardar(captor.capture());
 
         Usuario guardado = captor.getValue();
         assertEquals("Laura", guardado.getNombre());
+        assertEquals("Gomez", guardado.getApellido());
         assertEquals("laura@gmail.com", guardado.getCorreo());
         assertEquals(TipoUsuario.CLIENTE, guardado.getTipo());
     }
 
     @Test
-    void deberiaRegistrarUsuarioGuiaConTilde() {
-        when(repository.save(any(Usuario.class))).thenAnswer(invocation -> invocation.getArgument(0));
+    void deberiaRegistrarUsuarioGuia() {
+        when(repository.existePorCorreo("carlos@gmail.com")).thenReturn(false);
+        when(repository.guardar(any(Usuario.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         Map<String, String> body = Map.of(
                 "nombre", "Carlos",
+                "apellido", "Perez",
                 "correo", "carlos@gmail.com",
-                "tipo", "GUÍA"
+                "tipo", "GUIA"
         );
 
         Usuario respuesta = controller.crear(body);
 
         assertEquals("Carlos", respuesta.getNombre());
+        assertEquals("Perez", respuesta.getApellido());
         assertEquals(TipoUsuario.GUIA, respuesta.getTipo());
-        verify(repository, times(1)).save(any(Usuario.class));
+        verify(repository, times(1)).guardar(any(Usuario.class));
     }
 
     @Test
     void deberiaLanzarExcepcionCuandoTipoEsInvalido() {
         Map<String, String> body = Map.of(
                 "nombre", "Pedro",
+                "apellido", "Lopez",
                 "correo", "pedro@gmail.com",
                 "tipo", "ADMIN"
         );
@@ -94,6 +99,7 @@ class RegistrarUsuarioTest {
     void deberiaLanzarExcepcionCuandoFaltaTipo() {
         Map<String, String> body = Map.of(
                 "nombre", "Sara",
+                "apellido", "Ruiz",
                 "correo", "sara@gmail.com"
         );
 

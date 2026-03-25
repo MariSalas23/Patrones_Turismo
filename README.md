@@ -22,7 +22,6 @@ Los casos de uso que se ven en esta empresa son:
 
 * Registrar usuario
 * Obtener usuario
-* Obtener listado de todos los usuarios
 * Consultar tours disponibles
 * Crear reserva
 * Cancelar reserva
@@ -77,7 +76,6 @@ turismo-app/
 │   │       ├── usuarios/
 │   │       │   ├── dominio/
 │   │       │   │   ├── entities/
-│   │       │   │   |   ├── TipoUsuario.java
 │   │       │   │   │   └── Usuario.java
 │   │       │   │   ├── ports/
 │   │       │   │   │   └── UsuarioRepositoryPort.java
@@ -219,3 +217,77 @@ http://localhost:8080/usuarios
 ## Excepciones
 
 ## Pruebas
+
+Se implementó y ejecutó una suite de pruebas automatizadas para validar el comportamiento principal del proyecto en los módulos de **usuarios**, **tours** y **reservas**, así como la carga general del contexto de Spring Boot.
+
+### Resultado general
+
+La ejecución completa de pruebas finalizó satisfactoriamente con el siguiente resultado:
+
+- **Tests ejecutados:** 28
+- **Fallos:** 0
+- **Errores:** 0
+- **Pruebas omitidas:** 0
+- **Resultado final:** `BUILD SUCCESS`
+
+### Tipos de pruebas realizadas
+
+Se trabajó con dos tipos principales de pruebas:
+
+#### 1. Pruebas unitarias
+Estas pruebas validan componentes aislados del sistema, verificando reglas de negocio, validaciones y comportamiento interno sin depender del flujo completo de la aplicación.
+
+Se cubrieron principalmente los siguientes aspectos:
+
+- creación y validación de usuarios;
+- conversión y normalización del tipo de usuario;
+- consulta de usuarios;
+- comportamiento del adaptador de persistencia de usuarios;
+- creación de tours;
+- validación de reglas básicas de negocio en tours.
+
+#### 2. Pruebas de integración
+Estas pruebas verifican la interacción entre varias capas del sistema, especialmente controladores HTTP, contexto Spring Boot y endpoints expuestos por la aplicación.
+
+Se validaron principalmente:
+
+- endpoints del módulo de usuarios;
+- endpoints del módulo de reservas;
+- carga del contexto general de la aplicación;
+- funcionamiento del entorno de pruebas con Spring Boot.
+
+### Clases de prueba ejecutadas
+
+Durante la corrida exitosa se ejecutaron las siguientes clases de prueba:
+
+- `ReservaIntegrationTest`
+- `UsuarioIntegrationTest`
+- `TurismoAppApplicationTests`
+- `CrearTourTest`
+- `ObtenerUsuarioTest`
+- `RegistrarUsuarioTest`
+- `TipoUsuarioTest`
+- `UsuarioMongoAdapterTest`
+
+### Cobertura funcional alcanzada
+
+Con esta suite se comprobó que el sistema:
+
+- crea usuarios correctamente;
+- lista usuarios correctamente;
+- interpreta y valida adecuadamente el tipo de usuario;
+- integra correctamente el controlador de usuarios con la capa HTTP;
+- carga correctamente el contexto de Spring Boot;
+- permite validar el flujo principal del módulo de reservas desde integración;
+- permite validar la creación de tours desde pruebas unitarias.
+
+### Entorno de ejecución
+
+La corrida final exitosa se realizó con **Java 17**, lo que permitió evitar los problemas previos de compatibilidad detectados al ejecutar algunas pruebas con Java 23.
+
+### Comando utilizado
+
+Para ejecutar la suite completa se utilizó:
+
+```bash
+./mvnw test
