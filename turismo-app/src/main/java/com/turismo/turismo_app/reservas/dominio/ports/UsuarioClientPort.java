@@ -1,5 +1,6 @@
 package com.turismo.turismo_app.reservas.dominio.ports;
 
-public class UsuarioClientPort {
-    
+public interface UsuarioClientPort {
+
+    boolean existeUsuario(String usuarioId);
 }

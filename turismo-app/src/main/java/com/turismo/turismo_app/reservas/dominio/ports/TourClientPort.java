@@ -1,5 +1,8 @@
 package com.turismo.turismo_app.reservas.dominio.ports;
 
-public class TourClientPort {
-    
+public interface TourClientPort {
+
+    boolean existeTour(String tourId);
+
+    int obtenerCapacidadDisponible(String tourId);
 }
