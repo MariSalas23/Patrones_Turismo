@@ -14,6 +14,6 @@ public interface SpringDataTourRepository extends MongoRepository<Tour, String> 
     // 🔥 TOURS DISPONIBLES
     List<Tour> findByActivoTrueAndCuposDisponiblesGreaterThan(int cupos);
 
-    // 🔥 VALIDAR GUIA OCUPADO (CORREGIDO)
+    // 🔥 VALIDAR GUIA OCUPADO
     boolean existsByGuiaIdAndFechaInicio(String guiaId, LocalDateTime fechaInicio);
 }

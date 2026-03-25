@@ -1,25 +1,22 @@
 package com.turismo.turismo_app.tours.aplicacion.casos_uso;
 
+import java.util.Optional;
+
 import com.turismo.turismo_app.tours.dominio.entities.Tour;
 import com.turismo.turismo_app.tours.dominio.exceptions.TourException;
 import com.turismo.turismo_app.tours.dominio.ports.TourRepositoryPort;
 import com.turismo.turismo_app.tours.dominio.entities.Tour;
 
-public class CancelarTour {
+public class ObtenerTour {
 
     private final TourRepositoryPort repository;
 
-    public CancelarTour(TourRepositoryPort repository) {
+    public ObtenerTour(TourRepositoryPort repository) {
         this.repository = repository;
     }
 
     public Tour ejecutar(String id) {
-
-        Tour tour = repository.buscarPorId(id)
+        return repository.buscarPorId(id)
                 .orElseThrow(() -> new TourException("Tour no encontrado", "id", id));
-
-        tour.setActivo(false); // 🔥 clave
-
-        return repository.guardar(tour);
     }
 }

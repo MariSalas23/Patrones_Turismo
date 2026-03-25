@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.turismo.turismo_app.tours.dominio.entities.Tour;
 import com.turismo.turismo_app.tours.dominio.ports.TourRepositoryPort;
+import java.util.Optional;
 
 @Component
 public class TourMongoAdapter implements TourRepositoryPort {
@@ -25,6 +26,11 @@ public class TourMongoAdapter implements TourRepositoryPort {
     @Override
     public List<Tour> buscarTodos() {
         return repository.findAll();
+    }
+
+    @Override
+    public Optional<Tour> buscarPorId(String id) {
+        return repository.findById(id);
     }
 
     @Override
