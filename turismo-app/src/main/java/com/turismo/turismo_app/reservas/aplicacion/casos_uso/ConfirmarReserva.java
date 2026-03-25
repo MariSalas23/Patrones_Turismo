@@ -4,35 +4,42 @@ import org.springframework.stereotype.Component;
 
 import com.turismo.turismo_app.reservas.dominio.entities.Reserva;
 import com.turismo.turismo_app.reservas.dominio.entities.EstadoReserva;
-import com.turismo.turismo_app.reservas.dominio.exceptions.ReservaException;
+import com.turismo.turismo_app.reservas.dominio.exceptions.EstadoReservaInvalidoException;
+import com.turismo.turismo_app.reservas.dominio.exceptions.ReservaNoEncontradaException;
 import com.turismo.turismo_app.reservas.dominio.ports.*;
 
 @Component
 public class ConfirmarReserva {
 
-    private final ReservaRepositoryPort reservaRepository;
+    private final ReservaRepositoryPort repository;
     private final PagoPort pagoPort;
 
-    public ConfirmarReserva(ReservaRepositoryPort reservaRepository, PagoPort pagoPort) {
-        this.reservaRepository = reservaRepository;
+    public ConfirmarReserva(ReservaRepositoryPort repository,
+                            PagoPort pagoPort) {
+        this.repository = repository;
         this.pagoPort = pagoPort;
     }
 
-    public Reserva ejecutar(String reservaId) {
+    public Reserva ejecutar(String id) {
 
-        Reserva reserva = reservaRepository.buscarPorId(reservaId)
-                .orElseThrow(() -> new ReservaException("Reserva no encontrada"));
+        Reserva reserva = repository.buscarPorId(id)
+                .orElseThrow(() -> new ReservaNoEncontradaException(id));
 
+        // ❌ No confirmar si ya está cancelada
         if (reserva.getEstado() == EstadoReserva.CANCELADA) {
-            throw new ReservaException("Reserva cancelada");
+            throw new EstadoReservaInvalidoException("No se puede confirmar una reserva cancelada");
         }
 
-        if (!pagoPort.procesarPago(reservaId)) {
-            throw new ReservaException("Pago rechazado");
+        // 💳 Simulación de pago
+        boolean pagoExitoso = pagoPort.procesarPago(id);
+
+        if (!pagoExitoso) {
+            throw new EstadoReservaInvalidoException("El pago no fue aprobado");
         }
 
+        // ✅ Confirmar
         reserva.confirmar();
 
-        return reservaRepository.guardar(reserva);
+        return repository.guardar(reserva);
     }
 }

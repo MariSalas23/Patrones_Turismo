@@ -16,17 +16,24 @@ public class ReservaController {
     private final ModificarReserva modificarReserva;
     private final ObtenerReserva obtenerReserva;
     private final ObtenerTodasReservas obtenerTodas;
+    private final ConfirmarReserva confirmarReserva;
 
     public ReservaController(CrearReserva crearReserva,
                              CancelarReserva cancelarReserva,
                              ModificarReserva modificarReserva,
                              ObtenerReserva obtenerReserva,
-                             ObtenerTodasReservas obtenerTodas) {
+                             ObtenerTodasReservas obtenerTodas, ConfirmarReserva confirmarReserva) {
         this.crearReserva = crearReserva;
         this.cancelarReserva = cancelarReserva;
         this.modificarReserva = modificarReserva;
         this.obtenerReserva = obtenerReserva;
         this.obtenerTodas = obtenerTodas;
+        this.confirmarReserva = confirmarReserva;
+    }
+
+    @PostMapping("/{id}/confirmar")
+    public Reserva confirmar(@PathVariable String id) {
+        return confirmarReserva.ejecutar(id);
     }
 
     @PostMapping
