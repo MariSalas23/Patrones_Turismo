@@ -32,16 +32,18 @@ class UsuarioIntegrationTest {
 
     @Test
     void deberiaCrearUsuarioPorHttp() throws Exception {
-        Usuario usuario = new Usuario("Laura", "laura@gmail.com", TipoUsuario.CLIENTE);
+        Usuario usuario = new Usuario("Laura", "Gomez", "laura@gmail.com", TipoUsuario.CLIENTE);
         usuario.setId("abc123");
 
-        when(repository.save(any(Usuario.class))).thenReturn(usuario);
+        when(repository.existePorCorreo("laura@gmail.com")).thenReturn(false);
+        when(repository.guardar(any(Usuario.class))).thenReturn(usuario);
 
         mockMvc.perform(post("/usuarios")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
                           "nombre": "Laura",
+                          "apellido": "Gomez",
                           "correo": "laura@gmail.com",
                           "tipo": "CLIENTE"
                         }
@@ -49,22 +51,25 @@ class UsuarioIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("abc123"))
                 .andExpect(jsonPath("$.nombre").value("Laura"))
+                .andExpect(jsonPath("$.apellido").value("Gomez"))
                 .andExpect(jsonPath("$.correo").value("laura@gmail.com"))
                 .andExpect(jsonPath("$.tipo").value("CLIENTE"));
     }
 
     @Test
     void deberiaListarUsuariosPorHttp() throws Exception {
-        Usuario u1 = new Usuario("Laura", "laura@gmail.com", TipoUsuario.CLIENTE);
-        Usuario u2 = new Usuario("Carlos", "carlos@gmail.com", TipoUsuario.GUIA);
+        Usuario u1 = new Usuario("Laura", "Gomez", "laura@gmail.com", TipoUsuario.CLIENTE);
+        Usuario u2 = new Usuario("Carlos", "Perez", "carlos@gmail.com", TipoUsuario.GUIA);
 
-        when(repository.findAll()).thenReturn(List.of(u1, u2));
+        when(repository.buscarTodos()).thenReturn(List.of(u1, u2));
 
         mockMvc.perform(get("/usuarios"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].nombre").value("Laura"))
+                .andExpect(jsonPath("$[0].apellido").value("Gomez"))
                 .andExpect(jsonPath("$[0].tipo").value("CLIENTE"))
                 .andExpect(jsonPath("$[1].nombre").value("Carlos"))
+                .andExpect(jsonPath("$[1].apellido").value("Perez"))
                 .andExpect(jsonPath("$[1].tipo").value("GUIA"));
     }
 }

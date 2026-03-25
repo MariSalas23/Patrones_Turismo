@@ -1,10 +1,7 @@
 package com.turismo.turismo_app.unitarias.usuarios;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.List;
 
@@ -13,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import com.turismo.turismo_app.usuarios.dominio.entities.TipoUsuario;
 import com.turismo.turismo_app.usuarios.dominio.entities.Usuario;
-import com.turismo.turismo_app.usuarios.infraestructura.out.persistance.SpringDataUsuarioRepository;
-import com.turismo.turismo_app.usuarios.infraestructura.out.persistance.UsuarioMongoAdapter;
+import com.turismo.turismo_app.usuarios.infraestructura.out.persistence.SpringDataUsuarioRepository;
+import com.turismo.turismo_app.usuarios.infraestructura.out.persistence.UsuarioMongoAdapter;
 
 class UsuarioMongoAdapterTest {
 
@@ -29,10 +26,10 @@ class UsuarioMongoAdapterTest {
 
     @Test
     void deberiaGuardarUsuarioDelegandoEnRepositorio() {
-        Usuario usuario = new Usuario("Laura", "laura@gmail.com", TipoUsuario.CLIENTE);
+        Usuario usuario = new Usuario("Laura", "Gomez", "laura@gmail.com", TipoUsuario.CLIENTE);
         when(repository.save(usuario)).thenReturn(usuario);
 
-        Usuario resultado = adapter.save(usuario);
+        Usuario resultado = adapter.guardar(usuario);
 
         assertEquals(usuario, resultado);
         verify(repository, times(1)).save(usuario);
@@ -41,13 +38,13 @@ class UsuarioMongoAdapterTest {
     @Test
     void deberiaListarUsuariosDelegandoEnRepositorio() {
         List<Usuario> usuarios = List.of(
-                new Usuario("Laura", "laura@gmail.com", TipoUsuario.CLIENTE),
-                new Usuario("Carlos", "carlos@gmail.com", TipoUsuario.GUIA)
+                new Usuario("Laura", "Gomez", "laura@gmail.com", TipoUsuario.CLIENTE),
+                new Usuario("Carlos", "Perez", "carlos@gmail.com", TipoUsuario.GUIA)
         );
 
         when(repository.findAll()).thenReturn(usuarios);
 
-        List<Usuario> resultado = adapter.findAll();
+        List<Usuario> resultado = adapter.buscarTodos();
 
         assertEquals(2, resultado.size());
         verify(repository, times(1)).findAll();
