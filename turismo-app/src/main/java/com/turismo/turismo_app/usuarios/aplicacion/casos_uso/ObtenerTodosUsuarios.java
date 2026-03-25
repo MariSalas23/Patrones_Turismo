@@ -1,19 +1,19 @@
 package com.turismo.turismo_app.usuarios.aplicacion.casos_uso;
 
-import java.util.Optional;
+import java.util.List;
 
 import com.turismo.turismo_app.usuarios.dominio.entities.Usuario;
 import com.turismo.turismo_app.usuarios.dominio.ports.UsuarioRepositoryPort;
 
-public class ObtenerUsuario {
+public class ObtenerTodosUsuarios {
 
     private final UsuarioRepositoryPort repository;
 
-    public ObtenerUsuario(UsuarioRepositoryPort repository) {
+    public ObtenerTodosUsuarios(UsuarioRepositoryPort repository) {
         this.repository = repository;
     }
 
-    public Optional<Usuario> obtenerPorId(String id) {
-        return repository.buscarPorId(id);
+    public List<Usuario> ejecutar() {
+        return repository.buscarTodos();
     }
 }

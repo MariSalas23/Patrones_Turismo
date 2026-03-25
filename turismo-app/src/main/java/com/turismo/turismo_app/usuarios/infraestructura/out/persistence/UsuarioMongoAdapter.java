@@ -1,12 +1,14 @@
-package com.turismo.turismo_app.usuarios.infraestructura.out.persistance;
+package com.turismo.turismo_app.usuarios.infraestructura.out.persistence;
 
-import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Component;
 
 import com.turismo.turismo_app.usuarios.dominio.entities.Usuario;
 import com.turismo.turismo_app.usuarios.dominio.ports.UsuarioRepositoryPort;
 
-@Repository
+@Component
 public class UsuarioMongoAdapter implements UsuarioRepositoryPort {
 
     private final SpringDataUsuarioRepository repository;
@@ -16,12 +18,22 @@ public class UsuarioMongoAdapter implements UsuarioRepositoryPort {
     }
 
     @Override
-    public Usuario save(Usuario usuario) {
+    public Usuario guardar(Usuario usuario) {
         return repository.save(usuario);
     }
 
     @Override
-    public List<Usuario> findAll() {
+    public Optional<Usuario> buscarPorId(String id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public List<Usuario> buscarTodos() {
         return repository.findAll();
+    }
+
+    @Override
+    public boolean existePorCorreo(String correo) {
+        return repository.existsByCorreo(correo);
     }
 }

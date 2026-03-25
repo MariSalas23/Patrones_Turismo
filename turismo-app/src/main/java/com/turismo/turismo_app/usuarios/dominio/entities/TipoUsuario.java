@@ -5,8 +5,8 @@ public enum TipoUsuario {
     GUIA;
 
     public static TipoUsuario fromString(String value) {
-        if (value == null) {
-            throw new IllegalArgumentException("TipoUsuario no puede ser null");
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException("TipoUsuario no puede ser null o vacío");
         }
 
         value = value.trim().toUpperCase();
@@ -15,10 +15,6 @@ public enum TipoUsuario {
             return GUIA;
         }
 
-        try {
-            return TipoUsuario.valueOf(value);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("TipoUsuario inválido: " + value);
-        }
+        return TipoUsuario.valueOf(value);
     }
 }

@@ -1,19 +1,18 @@
 package com.turismo.turismo_app.tours.aplicacion.casos_uso;
 
-import java.util.List;
-
 import com.turismo.turismo_app.tours.dominio.entities.Tour;
 import com.turismo.turismo_app.tours.dominio.ports.TourRepositoryPort;
 
-public class ConsultarDisponibilidad {
+public class CancelarTour {
 
     private final TourRepositoryPort repository;
 
-    public ConsultarDisponibilidad(TourRepositoryPort repository) {
+    public CancelarTour(TourRepositoryPort repository) {
         this.repository = repository;
     }
 
-    public List<Tour> ejecutar() {
-        return repository.buscarDisponibles();
+    public Tour ejecutar(Tour tour) {
+        tour.setActivo(false);
+        return repository.guardar(tour);
     }
 }

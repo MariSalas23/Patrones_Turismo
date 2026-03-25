@@ -22,6 +22,7 @@ Los casos de uso que se ven en esta empresa son:
 
 * Registrar usuario
 * Obtener usuario
+* Obtener listado de todos los usuarios
 * Consultar tours disponibles
 * Crear reserva
 * Cancelar reserva
@@ -76,6 +77,7 @@ turismo-app/
 │   │       ├── usuarios/
 │   │       │   ├── dominio/
 │   │       │   │   ├── entities/
+│   │       │   │   |   ├── TipoUsuario.java
 │   │       │   │   │   └── Usuario.java
 │   │       │   │   ├── ports/
 │   │       │   │   │   └── UsuarioRepositoryPort.java
