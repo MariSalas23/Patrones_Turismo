@@ -12,15 +12,21 @@ import com.turismo.turismo_app.reservas.dominio.entities.Reserva;
 public class ReservaController {
 
     private final CrearReserva crearReserva;
-    private final ConfirmarReserva confirmarReserva;
     private final CancelarReserva cancelarReserva;
+    private final ModificarReserva modificarReserva;
+    private final ObtenerReserva obtenerReserva;
+    private final ObtenerTodasReservas obtenerTodas;
 
     public ReservaController(CrearReserva crearReserva,
-                             ConfirmarReserva confirmarReserva,
-                             CancelarReserva cancelarReserva) {
+                             CancelarReserva cancelarReserva,
+                             ModificarReserva modificarReserva,
+                             ObtenerReserva obtenerReserva,
+                             ObtenerTodasReservas obtenerTodas) {
         this.crearReserva = crearReserva;
-        this.confirmarReserva = confirmarReserva;
         this.cancelarReserva = cancelarReserva;
+        this.modificarReserva = modificarReserva;
+        this.obtenerReserva = obtenerReserva;
+        this.obtenerTodas = obtenerTodas;
     }
 
     @PostMapping
@@ -33,9 +39,24 @@ public class ReservaController {
         );
     }
 
-    @PostMapping("/{id}/confirmar")
-    public Reserva confirmar(@PathVariable String id) {
-        return confirmarReserva.ejecutar(id);
+    @GetMapping("/{id}")
+    public Reserva obtener(@PathVariable String id) {
+        return obtenerReserva.ejecutar(id);
+    }
+
+    @GetMapping
+    public List<Reserva> obtenerTodas() {
+        return obtenerTodas.ejecutar();
+    }
+
+    @PutMapping("/{id}")
+    public Reserva modificar(@PathVariable String id,
+                             @RequestBody ReservaRequest request) {
+        return modificarReserva.ejecutar(
+                id,
+                request.getCantidadPersonas(),
+                request.getFecha()
+        );
     }
 
     @PostMapping("/{id}/cancelar")

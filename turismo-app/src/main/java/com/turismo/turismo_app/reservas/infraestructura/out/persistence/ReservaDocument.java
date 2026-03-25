@@ -3,8 +3,7 @@ package com.turismo.turismo_app.reservas.infraestructura.out.persistence;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.turismo.turismo_app.reservas.dominio.entities.Reserva;
-import com.turismo.turismo_app.reservas.dominio.entities.EstadoReserva;
+import com.turismo.turismo_app.reservas.dominio.entities.*;
 
 import java.time.LocalDateTime;
 
@@ -19,8 +18,6 @@ public class ReservaDocument {
     private LocalDateTime fechaReserva;
     private EstadoReserva estado;
 
-    public ReservaDocument() {}
-
     public static ReservaDocument fromDomain(Reserva reserva) {
         ReservaDocument doc = new ReservaDocument();
         doc.id = reserva.getId();
@@ -34,20 +31,19 @@ public class ReservaDocument {
 
     public Reserva toDomain() {
         Reserva reserva = new Reserva(
-                this.id,
-                this.usuarioId,
-                this.tourId,
-                this.cantidadPersonas,
-                this.fechaReserva
+                id,
+                usuarioId,
+                tourId,
+                cantidadPersonas,
+                fechaReserva
         );
 
-        if (this.estado == EstadoReserva.CONFIRMADA) {
+        if (estado == EstadoReserva.CONFIRMADA) {
             reserva.confirmar();
-        } else if (this.estado == EstadoReserva.CANCELADA) {
+        } else if (estado == EstadoReserva.CANCELADA) {
             reserva.cancelar();
         }
 
         return reserva;
     }
-
 }

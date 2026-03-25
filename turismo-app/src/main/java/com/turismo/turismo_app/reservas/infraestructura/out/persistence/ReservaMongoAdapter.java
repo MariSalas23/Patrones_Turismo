@@ -2,13 +2,10 @@ package com.turismo.turismo_app.reservas.infraestructura.out.persistence;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
 import com.turismo.turismo_app.reservas.dominio.entities.Reserva;
-import com.turismo.turismo_app.reservas.infraestructura.out.persistence.ReservaDocument;
-import com.turismo.turismo_app.reservas.infraestructura.out.persistence.SpringDataReservaRepository;
 import com.turismo.turismo_app.reservas.dominio.ports.ReservaRepositoryPort;
 
 @Component
@@ -28,7 +25,8 @@ public class ReservaMongoAdapter implements ReservaRepositoryPort {
 
     @Override
     public Optional<Reserva> buscarPorId(String id) {
-        return repository.findById(id).map(ReservaDocument::toDomain);
+        return repository.findById(id)
+                .map(ReservaDocument::toDomain);
     }
 
     @Override
@@ -36,6 +34,14 @@ public class ReservaMongoAdapter implements ReservaRepositoryPort {
         return repository.findByUsuarioId(usuarioId)
                 .stream()
                 .map(ReservaDocument::toDomain)
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    @Override
+    public List<Reserva> buscarTodas() {
+        return repository.findAll()
+                .stream()
+                .map(ReservaDocument::toDomain)
+                .toList();
     }
 }

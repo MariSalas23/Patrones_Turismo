@@ -12,4 +12,6 @@ public interface ReservaRepositoryPort {
     Optional<Reserva> buscarPorId(String id);
 
     List<Reserva> buscarPorUsuario(String usuarioId);
+
+    List<Reserva> buscarTodas();
 }

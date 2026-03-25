@@ -2,31 +2,30 @@ package com.turismo.turismo_app.reservas.aplicacion.casos_uso;
 
 import org.springframework.stereotype.Component;
 
-import com.turismo.turismo_app.reservas.dominio.entities.Reserva;
-import com.turismo.turismo_app.reservas.dominio.entities.EstadoReserva;
-import com.turismo.turismo_app.reservas.dominio.exceptions.ReservaException;
+import com.turismo.turismo_app.reservas.dominio.entities.*;
+import com.turismo.turismo_app.reservas.dominio.exceptions.*;
 import com.turismo.turismo_app.reservas.dominio.ports.ReservaRepositoryPort;
 
 @Component
 public class CancelarReserva {
 
-    private final ReservaRepositoryPort reservaRepository;
+    private final ReservaRepositoryPort repository;
 
-    public CancelarReserva(ReservaRepositoryPort reservaRepository) {
-        this.reservaRepository = reservaRepository;
+    public CancelarReserva(ReservaRepositoryPort repository) {
+        this.repository = repository;
     }
 
-    public Reserva ejecutar(String reservaId) {
+    public Reserva ejecutar(String id) {
 
-        Reserva reserva = reservaRepository.buscarPorId(reservaId)
-                .orElseThrow(() -> new ReservaException("Reserva no encontrada"));
+        Reserva reserva = repository.buscarPorId(id)
+                .orElseThrow(() -> new ReservaNoEncontradaException(id));
 
         if (reserva.getEstado() == EstadoReserva.CONFIRMADA) {
-            throw new ReservaException("No se puede cancelar una reserva confirmada");
+            throw new EstadoReservaInvalidoException("No se puede cancelar una reserva confirmada");
         }
 
         reserva.cancelar();
 
-        return reservaRepository.guardar(reserva);
+        return repository.guardar(reserva);
     }
 }
