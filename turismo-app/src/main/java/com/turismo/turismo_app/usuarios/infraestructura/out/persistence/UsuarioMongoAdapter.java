@@ -33,7 +33,14 @@ public class UsuarioMongoAdapter implements UsuarioRepositoryPort {
     }
 
     @Override
+    public void eliminarPorId(String id) {
+        repository.deleteById(id);
+    }
+
+    @Override
     public boolean existePorCorreo(String correo) {
-        return repository.existsByCorreo(correo);
+        return repository.findAll()
+                .stream()
+                .anyMatch(u -> u.getCorreo().equalsIgnoreCase(correo));
     }
 }
