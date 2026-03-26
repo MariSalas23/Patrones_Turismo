@@ -16,14 +16,14 @@ public class UsuarioController {
 
     private final RegistrarUsuario registrarUsuario;
     private final ObtenerTodosUsuarios obtenerTodosUsuarios;
-    private final ObtenerUsuario obtenerUsuario; // 🔥 NUEVO
+    private final ObtenerUsuario obtenerUsuario;
     private final ModificarUsuario modificarUsuario;
     private final EliminarUsuario eliminarUsuario;
 
     public UsuarioController(UsuarioRepositoryPort repository) {
         this.registrarUsuario = new RegistrarUsuario(repository);
         this.obtenerTodosUsuarios = new ObtenerTodosUsuarios(repository);
-        this.obtenerUsuario = new ObtenerUsuario(repository); // 🔥 NUEVO
+        this.obtenerUsuario = new ObtenerUsuario(repository); 
         this.modificarUsuario = new ModificarUsuario(repository);
         this.eliminarUsuario = new EliminarUsuario(repository);
     }

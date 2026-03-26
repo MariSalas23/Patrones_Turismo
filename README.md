@@ -222,6 +222,7 @@ http://localhost:8080/usuarios
 ```
 {
   "nombre": "Prueba",
+  "apellido": "Perez",
   "correo": "pruebas@gmail.com",
   "tipo": "CLIENTE"
 }
@@ -269,13 +270,13 @@ http://localhost:8080/tours
 
 ```
 {
-  "nombre": "Tour Villavicencio,
+  "nombre": "Tour Villavicencio",
   "ubicacion": "Villavicencio",
   "guiaId": "{id}",
-  "capacidadMaxima": "21",
-  "precio": "58000",
-  "fechaInicio": "2026-02-10T09:00:00",
-  "fechaFin": "2026-02-10T17:00:00"
+  "capacidadMaxima": 21,
+  "precio": 58000,
+  "fechaInicio": "2026-05-10T09:00:00",
+  "fechaFin": "2026-05-10T17:00:00"
 }
 ```
 
@@ -298,13 +299,13 @@ http://localhost:8080/tours/{id}
 
 ```
 {
-  "nombre": "Tour Villavicencio,
+  "nombre": "Tour Villavicencio",
   "ubicacion": "Villavicencio",
   "guiaId": "{id}",
-  "capacidadMaxima": "24",
-  "precio": "55000",
-  "fechaInicio": "2026-02-10T09:00:00",
-  "fechaFin": "2026-02-10T17:00:00"
+  "capacidadMaxima": 24,
+  "precio": 55000,
+  "fechaInicio": "2026-05-10T09:00:00",
+  "fechaFin": "2026-05-10T17:00:00"
 }
 ```
 
@@ -315,7 +316,7 @@ http://localhost:8080/tours/{id}
 ```
 http://localhost:8080/reservas
 http://localhost:8080/reservas/{id}/confirmar
-http://localhost:8080/reservas{id}/cancelar
+http://localhost:8080/reservas/{id}/cancelar
 ```
 
 **Body (JSON):**
@@ -325,7 +326,7 @@ http://localhost:8080/reservas{id}/cancelar
   "usuarioId": "{id}",
   "tourId": "{id}",
   "cantidadPersonas": 2,
-  "fecha": "2026-12-15T10:00:00"
+  "fecha": "2026-04-15T10:00:00"
 }
 ```
 
@@ -334,17 +335,6 @@ http://localhost:8080/reservas{id}/cancelar
 ```
 http://localhost:8080/reservas
 http://localhost:8080/reservas/{id}
-```
-
-**Body (JSON):**
-
-```
-{
-  "usuarioId": "{id}",
-  "tourId": "{id}",
-  "cantidadPersonas": 2,
-  "fecha": "2026-12-15T10:00:00"
-}
 ```
 
 #### 5.3.3. PUT
@@ -358,7 +348,7 @@ http://localhost:8080/reservas/{id}
 ```
 {
   "cantidadPersonas": 4,
-  "fecha": "2026-11-20T09:00:00"
+  "fecha": "2026-04-20T09:00:00"
 }
 ```
 
