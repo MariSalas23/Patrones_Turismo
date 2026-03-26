@@ -45,26 +45,26 @@ Los submódulos que vemos en esta empresa son:
 
 La infraestructura que voy a utilizar:
 
-* Se divide en dos subcarpetas / adaptadores:
-    * Primarios o in: Se encargan de recibir solicitudes externas y enviarlas a la capa de aplicación.
-        * controllers:
+* **Se divide en dos subcarpetas / adaptadores:**
+    * **Primarios o in:** Se encargan de recibir solicitudes externas y enviarlas a la capa de aplicación.
+        * **controllers:**
             * ReservaController
             * TourController
             * UsuarioController
-        * advice:
+        * **advice:**
             * GlobalExceptionHandler
-    * Secundarios u out: Se encargan de interactuar con sistemas externos.
-        * persistence:
+    * **Secundarios u out:** Se encargan de interactuar con sistemas externos.
+        * **persistence:**
             * ReservaMongoAdapter
             * TourMongoAdapter
             * UsuarioMongoAdapter
             * SpringDataReservaRepository
             * SpringDataTourRepository
             * SpringDataUsuarioRepository
-        * http:
+        * **http:**
             * ToutHttpAdapter
             * UsuarioHttpAdapter
-        * external:
+        * **external:**
             * PagoGatewayAdapter
 * Tiene como base de datos no relacional a MongoDB.
 * Usa API REST (Spring Boot) para la comunicación de los módulos.
