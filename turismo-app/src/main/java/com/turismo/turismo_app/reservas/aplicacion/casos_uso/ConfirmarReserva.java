@@ -25,19 +25,19 @@ public class ConfirmarReserva {
         Reserva reserva = repository.buscarPorId(id)
                 .orElseThrow(() -> new ReservaNoEncontradaException(id));
 
-        // ❌ No confirmar si ya está cancelada
+        // No confirmar si ya está cancelada
         if (reserva.getEstado() == EstadoReserva.CANCELADA) {
             throw new EstadoReservaInvalidoException("No se puede confirmar una reserva cancelada");
         }
 
-        // 💳 Simulación de pago
+        // Simulación de pago
         boolean pagoExitoso = pagoPort.procesarPago(id);
 
         if (!pagoExitoso) {
             throw new EstadoReservaInvalidoException("El pago no fue aprobado");
         }
 
-        // ✅ Confirmar
+        // Confirmar
         reserva.confirmar();
 
         return repository.guardar(reserva);

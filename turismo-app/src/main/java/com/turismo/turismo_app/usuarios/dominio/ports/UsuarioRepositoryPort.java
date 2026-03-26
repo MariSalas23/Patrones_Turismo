@@ -13,7 +13,6 @@ public interface UsuarioRepositoryPort {
 
     List<Usuario> buscarTodos();
 
-    // 🔥 NUEVOS
     void eliminarPorId(String id);
 
     boolean existePorCorreo(String correo);

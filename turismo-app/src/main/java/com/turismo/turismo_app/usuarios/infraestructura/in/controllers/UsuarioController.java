@@ -16,17 +16,19 @@ public class UsuarioController {
 
     private final RegistrarUsuario registrarUsuario;
     private final ObtenerTodosUsuarios obtenerTodosUsuarios;
+    private final ObtenerUsuario obtenerUsuario; // 🔥 NUEVO
     private final ModificarUsuario modificarUsuario;
     private final EliminarUsuario eliminarUsuario;
 
     public UsuarioController(UsuarioRepositoryPort repository) {
         this.registrarUsuario = new RegistrarUsuario(repository);
         this.obtenerTodosUsuarios = new ObtenerTodosUsuarios(repository);
+        this.obtenerUsuario = new ObtenerUsuario(repository); // 🔥 NUEVO
         this.modificarUsuario = new ModificarUsuario(repository);
         this.eliminarUsuario = new EliminarUsuario(repository);
     }
 
-    // 🔥 CREAR
+    // Crear
     @PostMapping
     public Usuario crear(@RequestBody Map<String, String> body) {
 
@@ -40,13 +42,19 @@ public class UsuarioController {
         return registrarUsuario.ejecutar(usuario);
     }
 
-    // 🔥 LISTAR
+    // Listar
     @GetMapping
     public List<Usuario> listar() {
         return obtenerTodosUsuarios.ejecutar();
     }
 
-    // 🔥 MODIFICAR
+    // Obtener por ID
+    @GetMapping("/{id}")
+    public Usuario obtener(@PathVariable String id) {
+        return obtenerUsuario.ejecutar(id);
+    }
+
+    // Modificar
     @PutMapping("/{id}")
     public Usuario modificar(@PathVariable String id,
                              @RequestBody Map<String, String> body) {
@@ -61,7 +69,7 @@ public class UsuarioController {
         return modificarUsuario.ejecutar(id, datos);
     }
 
-    // 🔥 ELIMINAR
+    // Eliminar
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable String id) {
         eliminarUsuario.ejecutar(id);

@@ -19,7 +19,7 @@ public class RegistrarUsuario {
 
     public Usuario ejecutar(Usuario usuario) {
 
-        // 🔥 VALIDAR CAMPOS VACÍOS
+        // Validar campos vacíos
         if (usuario.getNombre() == null || usuario.getNombre().isBlank()) {
             throw new CampoVacioException("nombre");
         }
@@ -32,23 +32,23 @@ public class RegistrarUsuario {
             throw new CampoVacioException("correo");
         }
 
-        // 🔥 VALIDAR NOMBRE (sin números)
+        // Validar nombre
         if (!usuario.getNombre().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+")) {
             throw new NombreInvalidoException(usuario.getNombre());
         }
 
-        // 🔥 VALIDAR CORREO (formato)
+        // Validar correo
         String regexCorreo = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         if (!Pattern.matches(regexCorreo, usuario.getCorreo())) {
             throw new CorreoInvalidoException(usuario.getCorreo());
         }
 
-        // 🔥 VALIDAR CORREO DUPLICADO
+        // Validar correo duplicado
         if (repository.existePorCorreo(usuario.getCorreo())) {
             throw new CorreoDuplicadoException(usuario.getCorreo());
         }
 
-        // ✅ GUARDAR
+        // Guardar
         return repository.guardar(usuario);
     }
 }

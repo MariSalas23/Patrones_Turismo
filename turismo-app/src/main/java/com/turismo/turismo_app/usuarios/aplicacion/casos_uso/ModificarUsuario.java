@@ -17,7 +17,7 @@ public class ModificarUsuario {
         Usuario usuario = repository.buscarPorId(id)
                 .orElseThrow(() -> new UsuarioNoEncontradoException(id));
 
-        // 🔥 VALIDACIONES
+        // Validaciones
         if (datos.getNombre() == null || datos.getNombre().isBlank())
             throw new CampoVacioException("nombre");
 
@@ -30,13 +30,13 @@ public class ModificarUsuario {
         if (!datos.getCorreo().contains("@"))
             throw new CorreoInvalidoException(datos.getCorreo());
 
-        // 🔥 VALIDAR DUPLICADO (si cambia)
+        // Validar duplicado
         if (!usuario.getCorreo().equalsIgnoreCase(datos.getCorreo())
                 && repository.existePorCorreo(datos.getCorreo())) {
             throw new CorreoDuplicadoException(datos.getCorreo());
         }
 
-        // 🔥 ACTUALIZAR
+        // Actualizar
         usuario.setNombre(datos.getNombre());
         usuario.setCorreo(datos.getCorreo());
         usuario.setTipo(datos.getTipo());

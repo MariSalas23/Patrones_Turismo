@@ -22,7 +22,7 @@ public class CrearTour {
 
     public Tour ejecutar(Tour tour) {
 
-        // 🔥 CAMPOS OBLIGATORIOS
+        // Campos obligatorios
         if (tour.getNombre() == null || tour.getNombre().isBlank())
             throw new CampoInvalidoTourException("nombre");
 
@@ -38,7 +38,7 @@ public class CrearTour {
         if (tour.getCapacidadMaxima() <= 0)
             throw new CapacidadInvalidaException(tour.getCapacidadMaxima());
 
-        // 🔥 VALIDACIÓN DE FECHAS
+        // Validación de fechas
         if (tour.getFechaInicio() == null || tour.getFechaFin() == null)
             throw new CampoInvalidoTourException("fechas");
 
@@ -51,18 +51,18 @@ public class CrearTour {
                 String.valueOf(tour.getFechaFin())
             );
 
-        // 🔥 VALIDAR USUARIO (GUIA)
+        // Validar usuario
         Usuario usuario = usuarioRepository.buscarPorId(tour.getGuiaId())
                 .orElseThrow(() -> new GuiaNoExisteException(tour.getGuiaId()));
 
         if (!usuario.getTipo().equals(TipoUsuario.GUIA))
             throw new GuiaNoExisteException(tour.getGuiaId());
 
-        // 🔥 VALIDAR DISPONIBILIDAD DEL GUIA
+        // Validar disponibilidad
         if (repository.existeGuiaEnFecha(tour.getGuiaId(), tour.getFechaInicio()))
             throw new GuiaNoDisponibleException(tour.getGuiaId());
 
-        // ✅ GUARDAR
+        // Guardar
         return repository.guardar(tour);
     }
 }

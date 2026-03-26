@@ -20,7 +20,7 @@ public class ModificarTour {
         Tour tour = repository.buscarPorId(id)
                 .orElseThrow(() -> new TourException("Tour no encontrado", "id", id));
 
-        // 🔥 VALIDACIONES
+        // Validaciones
 
         if (datos.getNombre() == null || datos.getNombre().isBlank())
             throw new CampoInvalidoTourException("nombre");
@@ -46,7 +46,7 @@ public class ModificarTour {
                 String.valueOf(datos.getFechaFin())
             );
 
-        // 🔥 ACTUALIZAR
+        // Actualizar
         tour.setNombre(datos.getNombre());
         tour.setUbicacion(datos.getUbicacion());
         tour.setPrecio(datos.getPrecio());

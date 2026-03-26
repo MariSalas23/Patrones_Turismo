@@ -11,9 +11,9 @@ import com.turismo.turismo_app.tours.dominio.entities.Tour;
 @Repository
 public interface SpringDataTourRepository extends MongoRepository<Tour, String> {
 
-    // 🔥 TOURS DISPONIBLES
+    // Tours disponibles
     List<Tour> findByActivoTrueAndCuposDisponiblesGreaterThan(int cupos);
 
-    // 🔥 VALIDAR GUIA OCUPADO
+    // Validar guía
     boolean existsByGuiaIdAndFechaInicio(String guiaId, LocalDateTime fechaInicio);
 }

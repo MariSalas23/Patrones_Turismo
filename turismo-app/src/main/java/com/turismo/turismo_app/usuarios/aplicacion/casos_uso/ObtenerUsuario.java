@@ -1,8 +1,7 @@
 package com.turismo.turismo_app.usuarios.aplicacion.casos_uso;
 
-import java.util.Optional;
-
 import com.turismo.turismo_app.usuarios.dominio.entities.Usuario;
+import com.turismo.turismo_app.usuarios.dominio.exceptions.UsuarioNoEncontradoException;
 import com.turismo.turismo_app.usuarios.dominio.ports.UsuarioRepositoryPort;
 
 public class ObtenerUsuario {
@@ -13,7 +12,8 @@ public class ObtenerUsuario {
         this.repository = repository;
     }
 
-    public Optional<Usuario> obtenerPorId(String id) {
-        return repository.buscarPorId(id);
+    public Usuario ejecutar(String id) {
+        return repository.buscarPorId(id)
+                .orElseThrow(() -> new UsuarioNoEncontradoException(id));
     }
 }

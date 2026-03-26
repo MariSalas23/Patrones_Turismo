@@ -33,7 +33,7 @@ public class TourController {
         this.cancelarTour = new CancelarTour(tourRepo);
     }
 
-    // 🔥 CREAR TOUR
+    // Crear tour
     @PostMapping
     public Tour crear(@RequestBody Map<String, String> body) {
 
@@ -50,25 +50,25 @@ public class TourController {
         return crearTour.ejecutar(tour);
     }
 
-    // 🔥 CONSULTAR DISPONIBLES
+    // Consultar disponibles
     @GetMapping("/disponibles")
     public List<Tour> disponibles() {
         return consultarDisponibilidad.ejecutar();
     }
 
-    // 🔥 OBTENER TODOS
+    // Obtener todos
     @GetMapping
     public List<Tour> listar() {
         return obtenerTodosTours.ejecutar();
     }
 
-    // 🔥 OBTENER POR ID
+    // Obtener por ID
     @GetMapping("/{id}")
     public Tour obtener(@PathVariable String id) {
         return obtenerTour.ejecutar(id);
     }
 
-    // 🔥 MODIFICAR
+    // Modificar
     @PutMapping("/{id}")
     public Tour modificar(@PathVariable String id,
                           @RequestBody Map<String, String> body) {
@@ -86,7 +86,7 @@ public class TourController {
         return modificarTour.ejecutar(id, datos);
     }
 
-    // 🔥 CANCELAR TOUR
+    // Cancelar tour
     @PutMapping("/{id}/cancelar")
     public Tour cancelar(@PathVariable String id) {
         return cancelarTour.ejecutar(id);
